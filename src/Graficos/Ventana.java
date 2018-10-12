@@ -225,11 +225,14 @@ public class Ventana {
             aux = textoPantalla.getText();
             if (operacion != 6) {
                 ab = aux.split(" ");
-                a = Double.parseDouble(ab[0]);
-                b = Double.parseDouble(ab[2]);
+                String num1 = format(ab[0]);
+                String num2 = format(ab[2]);
+                a = Double.parseDouble(num1);
+                b = Double.parseDouble(num2);
             } else {
                 ab = aux.split(" ");
-                a = Double.parseDouble(ab[2]);
+                String num1 = format(ab[2]);
+                a = Double.parseDouble(num1);
             }
             switch (operacion) {
                 case 1:
@@ -244,18 +247,17 @@ public class Ventana {
                     break;
                 case 3:
                     c = a * b;
-                    aux = Double.toString(c);
+                    aux = String.format("%,.2f", c);
                     textoPantalla.setText(aux);
                     break;
                 case 4:
                     c = a / b;
-                    aux = Double.toString(c);
+                    aux = String.format("%,.2f", c);
                     textoPantalla.setText(aux);
                     break;
                 case 5:
                     c = (a * b) / 100;
-                    aux = String.format("%,.3f", c);
-                    aux = format(aux);
+                    aux = String.format("%,.2f", c);
                     textoPantalla.setText(aux);
                     break;
                 case 6:
@@ -506,7 +508,7 @@ public class Ventana {
                             textoPantalla.setText(aux);
                             break;
                         case 5:
-                            c = (a * b) / 100;
+                            c = (a * (b / 100));
                             aux = String.format("%,.3f", c);
                             aux = format(aux);
                             textoPantalla.setText(aux);
@@ -732,11 +734,15 @@ public class Ventana {
                     aux = textoPantalla.getText();
                     if (operacion != 6) {
                         ab = aux.split(" ");
-                        a = Double.parseDouble(ab[0]);
-                        b = Double.parseDouble(ab[2]);
+                        String num1 = format(ab[0]);
+                        String num2 = format(ab[2]);
+                        a = Double.parseDouble(num1);
+                        b = Double.parseDouble(num2);
+
                     } else {
                         ab = aux.split(" ");
-                        a = Double.parseDouble(ab[2]);
+                        String num1 = format(ab[2]);
+                        a = Double.parseDouble(num1);
                     }
                     switch (operacion) {
                         case 1:
@@ -760,9 +766,8 @@ public class Ventana {
                             textoPantalla.setText(aux);
                             break;
                         case 5:
-                            c = (a * b) / 100;
-                            aux = String.format("%,.3f", c);
-                            aux = format(aux);
+                            c = (a * (b / 100));
+                            aux = String.format("%,.2f", c);
                             textoPantalla.setText(aux);
                             break;
                         case 6:

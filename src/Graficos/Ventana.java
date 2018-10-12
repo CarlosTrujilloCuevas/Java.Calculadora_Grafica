@@ -650,8 +650,19 @@ public class Ventana {
                         textoPantalla.setText("6");
                     }
                 }
+                if ((e.getKeyCode() == KeyEvent.VK_7) && ((e.getModifiers() & KeyEvent.SHIFT_MASK) != 0)) {
+                    if (!textoPantalla.getText().equals("0")) {
 
-                if (e.getKeyCode() == KeyEvent.VK_7) {
+                        if (operacion == 0) {
+                            aux = textoPantalla.getText();
+                            aux += " / ";
+                            textoPantalla.setText(aux);
+                            operacion = 4;
+                        }
+                    }
+
+                }
+                if (e.getKeyCode() == KeyEvent.VK_7 && ((e.getModifiers() & KeyEvent.SHIFT_MASK) == 0)) {
                     if (!textoPantalla.getText().equals("0")) {
                         aux = textoPantalla.getText();
                         aux += "7";
@@ -678,6 +689,45 @@ public class Ventana {
                         textoPantalla.setText("9");
                     }
                 }
+
+                if ((e.getKeyCode() == KeyEvent.VK_PLUS) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
+                    if (!textoPantalla.getText().equals("0")) {
+                        if (operacion == 0) {
+                            aux = textoPantalla.getText();
+                            aux += " x ";
+                            textoPantalla.setText(aux);
+                            operacion = 3;
+                        }
+                    }
+
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_PLUS) {
+                    if (!textoPantalla.getText().equals("0")) {
+
+                        if (operacion == 0) {
+                            aux = textoPantalla.getText();
+                            aux += " + ";
+                            textoPantalla.setText(aux);
+                            operacion = 1;
+                        }
+                    }
+
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_MINUS) {
+                    if (!textoPantalla.getText().equals("0")) {
+
+                        if (operacion == 0) {
+                            aux = textoPantalla.getText();
+                            aux += " - ";
+                            textoPantalla.setText(aux);
+                            operacion = 2;
+                        }
+                    }
+
+                }
+
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     aux = textoPantalla.getText();
                     if (operacion != 6) {

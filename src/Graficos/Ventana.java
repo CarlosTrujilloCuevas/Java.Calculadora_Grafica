@@ -362,7 +362,44 @@ public class Ventana {
         btn.setContentAreaFilled(false);
 
         btn.setFocusable(true); //Importante para hacer funcionar el KeyListener
-        btn.addKeyListener(new KeyListener() {
+        Oyente(btn);
+    }
+
+    public void insertPantalla() {
+        Font myFont = new Font("TimesRoman", Font.PLAIN, 40);
+        FondoPantalla = new JPanel();
+        FondoPantalla.setSize(300, 131);
+        FondoPantalla.setBackground(Color.BLACK);
+        FondoPantalla.setLayout(null);
+
+        textoPantalla = new JTextField("0");
+        textoPantalla.setBorder(null);
+        textoPantalla.setEditable(false);
+        textoPantalla.setSize(280, 131);
+        textoPantalla.setOpaque(false);
+        textoPantalla.setFont(myFont);
+        textoPantalla.setForeground(Color.WHITE);
+        textoPantalla.setHorizontalAlignment(JTextField.RIGHT);
+
+        FondoPantalla.add(textoPantalla, 0);
+        this.Panel.add(FondoPantalla, 0);
+    }
+
+    public String format(String a) {
+        String formating = "";
+        for (int index = 0; index < a.length(); index++) {
+            String format = a.substring(index, index + 1);
+            if (format.equals(",")) {
+                format = ".";
+            }
+            formating += format;
+        }
+        return formating;
+    }
+
+    public void Oyente(JFrame frame) {
+        frame.setFocusable(true); //Importante para hacer funcionar el KeyListener
+        frame.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
             }
@@ -448,8 +485,19 @@ public class Ventana {
                         textoPantalla.setText("6");
                     }
                 }
+                if ((e.getKeyCode() == KeyEvent.VK_7) && ((e.getModifiers() & KeyEvent.SHIFT_MASK) != 0)) {
+                    if (!textoPantalla.getText().equals("0")) {
 
-                if (e.getKeyCode() == KeyEvent.VK_7) {
+                        if (operacion == 0) {
+                            aux = textoPantalla.getText();
+                            aux += " / ";
+                            textoPantalla.setText(aux);
+                            operacion = 4;
+                        }
+                    }
+
+                }
+                if (e.getKeyCode() == KeyEvent.VK_7 && ((e.getModifiers() & KeyEvent.SHIFT_MASK) == 0)) {
                     if (!textoPantalla.getText().equals("0")) {
                         aux = textoPantalla.getText();
                         aux += "7";
@@ -476,15 +524,58 @@ public class Ventana {
                         textoPantalla.setText("9");
                     }
                 }
+
+                if ((e.getKeyCode() == KeyEvent.VK_PLUS) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
+                    if (!textoPantalla.getText().equals("0")) {
+                        if (operacion == 0) {
+                            aux = textoPantalla.getText();
+                            aux += " x ";
+                            textoPantalla.setText(aux);
+                            operacion = 3;
+                        }
+                    }
+
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_PLUS) {
+                    if (!textoPantalla.getText().equals("0")) {
+
+                        if (operacion == 0) {
+                            aux = textoPantalla.getText();
+                            aux += " + ";
+                            textoPantalla.setText(aux);
+                            operacion = 1;
+                        }
+                    }
+
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_MINUS) {
+                    if (!textoPantalla.getText().equals("0")) {
+
+                        if (operacion == 0) {
+                            aux = textoPantalla.getText();
+                            aux += " - ";
+                            textoPantalla.setText(aux);
+                            operacion = 2;
+                        }
+                    }
+
+                }
+
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     aux = textoPantalla.getText();
                     if (operacion != 6) {
                         ab = aux.split(" ");
-                        a = Double.parseDouble(ab[0]);
-                        b = Double.parseDouble(ab[2]);
+                        String num1 = format(ab[0]);
+                        String num2 = format(ab[2]);
+                        a = Double.parseDouble(num1);
+                        b = Double.parseDouble(num2);
+
                     } else {
                         ab = aux.split(" ");
-                        a = Double.parseDouble(ab[2]);
+                        String num1 = format(ab[2]);
+                        a = Double.parseDouble(num1);
                     }
                     switch (operacion) {
                         case 1:
@@ -509,8 +600,7 @@ public class Ventana {
                             break;
                         case 5:
                             c = (a * (b / 100));
-                            aux = String.format("%,.3f", c);
-                            aux = format(aux);
+                            aux = String.format("%,.2f", c);
                             textoPantalla.setText(aux);
                             break;
                         case 6:
@@ -532,41 +622,9 @@ public class Ventana {
 
     }
 
-    public void insertPantalla() {
-        Font myFont = new Font("TimesRoman", Font.PLAIN, 40);
-        FondoPantalla = new JPanel();
-        FondoPantalla.setSize(300, 131);
-        FondoPantalla.setBackground(Color.BLACK);
-        FondoPantalla.setLayout(null);
-
-        textoPantalla = new JTextField("0");
-        textoPantalla.setBorder(null);
-        textoPantalla.setEditable(false);
-        textoPantalla.setSize(280, 131);
-        textoPantalla.setOpaque(false);
-        textoPantalla.setFont(myFont);
-        textoPantalla.setForeground(Color.WHITE);
-        textoPantalla.setHorizontalAlignment(JTextField.RIGHT);
-
-        FondoPantalla.add(textoPantalla, 0);
-        this.Panel.add(FondoPantalla, 0);
-    }
-
-    public String format(String a) {
-        String formating = "";
-        for (int index = 0; index < a.length(); index++) {
-            String format = a.substring(index, index + 1);
-            if (format.equals(",")) {
-                format = ".";
-            }
-            formating += format;
-        }
-        return formating;
-    }
-
-    public void Oyente(JFrame frame) {
-        frame.setFocusable(true); //Importante para hacer funcionar el KeyListener
-        frame.addKeyListener(new KeyListener() {
+    public void Oyente(JButton boton) {
+        boton.setFocusable(true); //Importante para hacer funcionar el KeyListener
+        boton.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
             }
